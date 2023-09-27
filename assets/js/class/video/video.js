@@ -8,6 +8,7 @@ export default class{
         this.play = false
 
         this.chars = '@%#*+=-:. '
+        // this.chars = '@%#&8O*+=-:. '
         this.data = []
         this.threshold = ~~(255 * ((this.chars.length - 1) / this.chars.length)) + 15
 
