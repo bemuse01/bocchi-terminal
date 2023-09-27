@@ -9,6 +9,7 @@ export default class{
 
         this.chars = '@%#*+=-:. '
         this.data = []
+        this.threshold = ~~(255 * ((this.chars.length - 1) / this.chars.length)) + 15
 
         this.init()
     }
@@ -28,7 +29,7 @@ export default class{
     }
     createCanvas(){
         this.canvas = document.createElement('canvas')
-        this.ctx = this.canvas.getContext('2d')
+        this.ctx = this.canvas.getContext('2d', {willReadFrequently: true})
     }
     async createVideo(){
         this.video = await this.loadVideo()
@@ -93,7 +94,8 @@ export default class{
                 const p4 = data[((ii + 1) * videoWidth + (jj + 1)) * 4]
 
                 const avg = (p1 + p2 + p3 + p4) / 4
-                const character = this.chars[~~((avg / 255) * (this.chars.length - 1))]
+                const avg2 = avg > this.threshold ? 255 : avg
+                const character = this.chars[~~((avg2 / 255) * (this.chars.length - 1))]
                 temp.push(character)
             }
 

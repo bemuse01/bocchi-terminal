@@ -49,8 +49,8 @@ export default {
         // canvas
         const canvas = ref()
         const ctx = ref()
-        const fontSize = 7
-        const chars = '@%#*+=-:. '
+        const fontSize = 12
+        // const chars = '@%#*+=-:. '
         const initCanvas = () => {
             canvas.value.width = window.innerWidth
             canvas.value.height = window.innerHeight
@@ -84,15 +84,16 @@ export default {
             if(!play) return
 
             const rows = data.length
-            const cols = data[0].length
+            const offsetY = height / 2 - (data.length * fontSize) / 2
+            // const cols = data[0].length
+            // console.log(offsetY)
 
             for(let i = 0; i < rows; i++){
-                for(let j = 0; j < cols; j++){
-                    const x = j * fontSize
-                    const y = i * fontSize
-                    const character = data[i][j]
-                    ctx.value.fillText(character, x, y)
-                }
+                const characters = data[i].join(' ')
+                const x = width / 2
+                const y = offsetY + i * fontSize
+
+                ctx.value.fillText(characters, x, y)
             }
         }
 
