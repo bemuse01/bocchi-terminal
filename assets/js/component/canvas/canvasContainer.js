@@ -50,20 +50,33 @@ export default {
         const canvas = ref()
         const ctx = ref()
         const fontSize = 12
+        let width = 0
+        let height = 0
         // const chars = '@%#*+=-:. '
         const initCanvas = () => {
-            canvas.value.width = window.innerWidth
-            canvas.value.height = window.innerHeight
+            width = window.innerWidth
+            height = window.innerHeight
+
+            canvas.value.width = width
+            canvas.value.height = height
             ctx.value = canvas.value.getContext('2d')
             
             ctx.value.textAlign = 'center'
             ctx.value.font = `${fontSize}px UbuntuMonoRegular`
             ctx.value.fillStyle = '#ffffff'
         }
-        const drawCanvas = () => {
-            const width = window.innerWidth
-            const height = window.innerHeight
+        const resizeCanvas = () => {
+            width = window.innerWidth
+            height = window.innerHeight
 
+            canvas.value.width = width
+            canvas.value.height = height
+
+            ctx.value.textAlign = 'center'
+            ctx.value.font = `${fontSize}px UbuntuMonoRegular`
+            ctx.value.fillStyle = '#ffffff'
+        }
+        const drawCanvas = () => {
             // const cols = Math.ceil(width / fontSize) + 1
             // const rows = Math.ceil(height / fontSize) + 1
 
@@ -83,22 +96,32 @@ export default {
 
             if(!play) return
 
+            // console.log(width, h eight)
+            // console.log(data)
+
             const rows = data.length
+            // const offsetX = width / 2 - (data[0].join(' ').length * fontSize) / 2
             const offsetY = height / 2 - (data.length * fontSize) / 2
             // const cols = data[0].length
-            // console.log(offsetY)
+            // console.log(offsetX, width / 2)
 
             for(let i = 0; i < rows; i++){
                 const characters = data[i].join(' ')
+                // const charsWidth = ctx.value.measureText(text)
                 const x = width / 2
                 const y = offsetY + i * fontSize
 
                 ctx.value.fillText(characters, x, y)
             }
+
+            console.log('work')
         }
 
 
         // methods
+        const onWindowResize = () => {
+            resizeCanvas()
+        }
         const animate = () => {
             animateVideo()
             drawCanvas()
@@ -108,6 +131,8 @@ export default {
             initCanvas()
             createVideo()
             animate()
+
+            window.addEventListener('resize', () => onWindowResize())
         }
 
 
