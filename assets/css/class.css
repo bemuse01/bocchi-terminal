@@ -1,0 +1,37 @@
+/* size */
+.w-100{
+    width: 100%;
+}
+.h-100{
+    height: 100%;
+}
+.wh-100{
+    width: 100%;
+    height: 100%;
+}
+
+
+/* position */
+.pos-ab{
+    position: absolute;
+}
+.pos-rel{
+    position: relative;
+}
+.pos-t-0{
+    top: 0;
+}
+.pos-l-0{
+    left: 0;
+}
+.pos-b-0{
+    bottom: 0;
+}
+.pos-r-0{
+    right: 0;
+}
+.pos-ab-tl-0{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
