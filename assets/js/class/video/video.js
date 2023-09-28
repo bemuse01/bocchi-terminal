@@ -7,9 +7,10 @@ export default class{
         this.video = null
         this.play = false
 
+        this.step = 2
         this.chars = '@%#*+=-:. '
         this.data = []
-        this.threshold = ~~(255 * ((this.chars.length - 1) / this.chars.length)) + 15
+        this.threshold = ~~(255 * ((this.chars.length - 1) / this.chars.length))
 
         this.init()
     }
@@ -45,8 +46,6 @@ export default class{
             video.loop = true
 
             video.onloadedmetadata = () => {
-                // this.width = video.videoWidth * this.ratio
-                // this.height = video.videoHeight * this.ratio
                 this.canvas.width = video.videoWidth
                 this.canvas.height = video.videoHeight
                 video.play()
@@ -70,7 +69,7 @@ export default class{
         this.ctx.drawImage(this.video, 0, 0, videoWidth, videoHeight)
         const {data} = this.ctx.getImageData(0, 0, videoWidth, videoHeight)
 
-        const step = 2
+        const step = this.step
         const rows = videoHeight / step
         const cols = videoWidth / step
 
@@ -78,30 +77,29 @@ export default class{
 
         for(let i = 0; i < rows; i++){
 
-            const ii = i * 2
+            const ii = i * step
             const temp = []
 
             for(let j = 0; j < cols; j++){
-                // const idx = i * cols + j
 
-                // console.log(idx * 4)
+                const jj = j * step
 
-                const jj = j * 2
+                let sum = 0
 
-                const p1 = data[((ii + 0) * videoWidth + (jj + 0)) * 4]
-                const p2 = data[((ii + 1) * videoWidth + (jj + 0)) * 4]
-                const p3 = data[((ii + 0) * videoWidth + (jj + 1)) * 4]
-                const p4 = data[((ii + 1) * videoWidth + (jj + 1)) * 4]
+                for(let k = 0; k < step; k++) for(let l = 0; l < step; l++){
+                    const p = data[((ii + k) * videoWidth + (jj + l)) * 4]
+                    sum += p
+                }
 
-                const avg = (p1 + p2 + p3 + p4) / 4
+                const avg = sum / (step * step)
                 const avg2 = avg > this.threshold ? 255 : avg
                 const character = this.chars[~~((avg2 / 255) * (this.chars.length - 1))]
+
                 temp.push(character)
+
             }
 
             arr.push(temp)
-
-            // console.log(temp.length)
         }
 
         this.data = arr
