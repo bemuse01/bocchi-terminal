@@ -32,7 +32,6 @@ export default {
             alignItems: 'center'
         })
 
-        
 
         // video
         const src = './assets/src/bocchi.mp4'
@@ -45,17 +44,29 @@ export default {
         }
 
 
-
         // canvas
         const canvas = ref()
         const ctx = ref()
         const fontSize = 12
+        let width = window.innerWidth
+        let height = window.innerHeight
         // const chars = '@%#*+=-:. '
         const initCanvas = () => {
-            canvas.value.width = window.innerWidth
-            canvas.value.height = window.innerHeight
+            canvas.value.width = width
+            canvas.value.height = height
             ctx.value = canvas.value.getContext('2d')
             
+            ctx.value.textAlign = 'center'
+            ctx.value.font = `${fontSize}px UbuntuMonoRegular`
+            ctx.value.fillStyle = '#ffffff'
+        }
+        const resizeCanvas = () => {
+            width = window.innerWidth
+            height = window.innerHeight
+
+            canvas.value.width = width
+            canvas.value.height = height
+
             ctx.value.textAlign = 'center'
             ctx.value.font = `${fontSize}px UbuntuMonoRegular`
             ctx.value.fillStyle = '#ffffff'
@@ -63,18 +74,6 @@ export default {
         const drawCanvas = () => {
             const width = window.innerWidth
             const height = window.innerHeight
-
-            // const cols = Math.ceil(width / fontSize) + 1
-            // const rows = Math.ceil(height / fontSize) + 1
-
-            // for(let i = 0; i < rows; i++){
-            //     for(let j = 0; j < cols; j++){
-            //         const x = j * fontSize
-            //         const y = i * fontSize
-            //         const character = chars[~~(Math.random() * chars.length)]
-            //         ctx.value.fillText(character, x, y)
-            //     }
-            // }
 
             ctx.value.clearRect(0, 0, width, height)
 
@@ -99,6 +98,9 @@ export default {
 
 
         // methods
+        const onWindowResize = () => {
+            resizeCanvas()
+        }
         const animate = () => {
             animateVideo()
             drawCanvas()
@@ -108,6 +110,8 @@ export default {
             initCanvas()
             createVideo()
             animate()
+
+            window.addEventListener('resize', () => onWindowResize())
         }
 
 
