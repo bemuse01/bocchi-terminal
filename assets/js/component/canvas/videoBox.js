@@ -19,7 +19,7 @@ export default {
 
 
         // videos
-        const src = './assets/src/videos/kessoku.mp4'
+        const src = './assets/src/videos/bocchi.mp4'
         let video = null
         const createVideo = () => {
             video = new Video(src)
