@@ -101,20 +101,20 @@ export default {
 
             const rows = data.length
             // const offsetX = width / 2 - (data[0].join(' ').length * fontSize) / 2
-            const offsetY = height / 2 - (data.length * fontSize) / 2
+            // const offsetY = height / 2 - (data.length * fontSize) / 2
             // const cols = data[0].length
             // console.log(offsetX, width / 2)
+
+            // console.log(offsetY)
 
             for(let i = 0; i < rows; i++){
                 const characters = data[i].join(' ')
                 // const charsWidth = ctx.value.measureText(text)
                 const x = width / 2
-                const y = offsetY + i * fontSize
+                const y = i * fontSize
 
                 ctx.value.fillText(characters, x, y)
             }
-
-            console.log('work')
         }
 
 
