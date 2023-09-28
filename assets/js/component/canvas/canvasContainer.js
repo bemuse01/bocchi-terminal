@@ -1,23 +1,34 @@
 import Video from '../../class/video/video.js'
+import VideoBox from './videoBox.js'
 
 export default {
+    components: {
+        'video-box': VideoBox
+    },  
     template: `
         <div 
             id="canvas-container"
             :style="containerStyle"
         >
+
             <canvas 
                 :ref="el => canvas = el"
             />
+
+            <video-box
+                :ctx="ctx"
+                :fontSize="fontSize"
+            />
+
         </div>
     `,
     setup(){
         const {ref, onMounted} = Vue
-        const {useStore} = Vuex
+        // const {useStore} = Vuex
 
 
         // store
-        const store = useStore()
+        // const store = useStore()
 
 
         // container
@@ -33,27 +44,13 @@ export default {
         })
 
 
-        // video
-        const src = './assets/src/bocchi.mp4'
-        let video = null
-        const createVideo = () => {
-            video = new Video(src)
-        }
-        const animateVideo = () => {
-            video.animate()
-        }
-
-
         // canvas
         const canvas = ref()
         const ctx = ref()
         const fontSize = 12
-        let width = window.innerWidth
-        let height = window.innerHeight
-        // const chars = '@%#*+=-:. '
         const initCanvas = () => {
-            canvas.value.width = width
-            canvas.value.height = height
+            canvas.value.width = window.innerWidth
+            canvas.value.height = window.innerHeight
             ctx.value = canvas.value.getContext('2d')
             
             ctx.value.textAlign = 'center'
@@ -61,39 +58,12 @@ export default {
             ctx.value.fillStyle = '#ffffff'
         }
         const resizeCanvas = () => {
-            width = window.innerWidth
-            height = window.innerHeight
-
-            canvas.value.width = width
-            canvas.value.height = height
+            canvas.value.width = window.innerWidth
+            canvas.value.height = window.innerHeight
 
             ctx.value.textAlign = 'center'
             ctx.value.font = `${fontSize}px UbuntuMonoRegular`
             ctx.value.fillStyle = '#ffffff'
-        }
-        const drawCanvas = () => {
-            const width = window.innerWidth
-            const height = window.innerHeight
-
-            ctx.value.clearRect(0, 0, width, height)
-
-            const data = video.getData()
-            const play = video.isPlaying()
-
-            if(!play) return
-
-            const rows = data.length
-            const offsetY = height / 2 - (data.length * fontSize) / 2
-            // const cols = data[0].length
-            // console.log(offsetY)
-
-            for(let i = 0; i < rows; i++){
-                const characters = data[i].join(' ')
-                const x = width / 2
-                const y = offsetY + i * fontSize
-
-                ctx.value.fillText(characters, x, y)
-            }
         }
 
 
@@ -102,13 +72,10 @@ export default {
             resizeCanvas()
         }
         const animate = () => {
-            animateVideo()
-            drawCanvas()
             requestAnimationFrame(animate)
         }
         const init = () => {
             initCanvas()
-            createVideo()
             animate()
 
             window.addEventListener('resize', () => onWindowResize())
@@ -124,6 +91,8 @@ export default {
         return {
             canvas,
             containerStyle,
+            ctx,
+            fontSize
         }
     }
 }
