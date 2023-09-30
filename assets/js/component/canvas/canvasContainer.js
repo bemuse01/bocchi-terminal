@@ -3,6 +3,9 @@ import VideoBox from './videoBox.js'
 import TextBox from './textBox.js'
 
 export default {
+    props: {
+        flex: String
+    },
     components: {
         'video-box': VideoBox,
         'text-box': TextBox,
@@ -13,23 +16,17 @@ export default {
             :style="containerStyle"
         >
 
-            <canvas 
-                :ref="el => canvas = el"
-            />
-
             <video-box
-                :ctx="ctx"
-                :fontSize="fontSize"
+                flex="0.8"
             />
 
-            <!--<text-box
-                :ctx="ctx"
-                :fontSize="fontSize"
-            />-->
+            <text-box
+                flex="0.2"
+            />
 
         </div>
     `,
-    setup(){
+    setup(props){
         const {ref, onMounted} = Vue
         // const {useStore} = Vuex
 
@@ -38,68 +35,22 @@ export default {
         // const store = useStore()
 
 
+        // props
+        const {flex} = props
+
+
         // container
         const containerStyle = ref({
-            position: 'absolute',
-            top: '0',
-            left: '0',
             width: '100%',
             height: '100%',
             display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-        })
-
-
-        // canvas
-        const canvas = ref()
-        const ctx = ref()
-        const fontSize = 12
-        const initCanvas = () => {
-            canvas.value.width = window.innerWidth
-            canvas.value.height = window.innerHeight
-            ctx.value = canvas.value.getContext('2d')
-            
-            ctx.value.textAlign = 'center'
-            ctx.value.font = `${fontSize}px UbuntuMonoRegular`
-            ctx.value.fillStyle = '#ffffff'
-        }
-        const resizeCanvas = () => {
-            canvas.value.width = window.innerWidth
-            canvas.value.height = window.innerHeight
-
-            ctx.value.textAlign = 'center'
-            ctx.value.font = `${fontSize}px UbuntuMonoRegular`
-            ctx.value.fillStyle = '#ffffff'
-        }
-
-
-        // methods
-        const onWindowResize = () => {
-            resizeCanvas()
-        }
-        const animate = () => {
-            requestAnimationFrame(animate)
-        }
-        const init = () => {
-            initCanvas()
-            animate()
-
-            window.addEventListener('resize', () => onWindowResize())
-        }
-
-
-        // hooks
-        onMounted(() => {
-            init()
+            flexDirection: 'column',
+            flex,
         })
 
 
         return {
-            canvas,
             containerStyle,
-            ctx,
-            fontSize
         }
     }
 }
