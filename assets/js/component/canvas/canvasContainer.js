@@ -1,9 +1,11 @@
 import Video from '../../class/video/video.js'
 import VideoBox from './videoBox.js'
+import TextBox from './textBox.js'
 
 export default {
     components: {
-        'video-box': VideoBox
+        'video-box': VideoBox,
+        'text-box': TextBox,
     },  
     template: `
         <div 
@@ -19,6 +21,11 @@ export default {
                 :ctx="ctx"
                 :fontSize="fontSize"
             />
+
+            <!--<text-box
+                :ctx="ctx"
+                :fontSize="fontSize"
+            />-->
 
         </div>
     `,
