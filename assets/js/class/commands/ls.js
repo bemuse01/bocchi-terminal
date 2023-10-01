@@ -8,6 +8,7 @@ export default class{
         this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         this.chars = 'abcdefghijklmnopqrstuvwxyz-_'
         this.numsOfDay = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        this.sizePadding = 5
     }
 
 
@@ -53,23 +54,28 @@ export default class{
     }
     // size
     createSize(){
-        return 2 ** ~~(Math.random() * 17)
+        const size = (2 ** ~~(Math.random() * 17)).toString()
+
+        const padding = Array.from({length: this.sizePadding - size.length}, _ => ' ').join('')
+
+        return size + padding
     }
     // date
     createDate(){
         const idx = ~~(Math.random() * this.months.length)
         const month = this.months[idx]
-        const day = ~~(Math.random() * this.numsOfDay[idx])
+        const rday = ~~(Math.random() * this.numsOfDay[idx])
+        const day = rday < 10 ? '0' + rday : '' + rday
         const rhour = ~~(Math.random() * 24)
-        const hour = rhour < 10 ? rhour + '0' : rhour + ''
+        const hour = rhour < 10 ? '0' + rhour : '' + rhour
         const rmin = ~~(Math.random() * 60)
-        const min = rmin < 10 ? rmin + '0' : rmin + ''
+        const min = rmin < 10 ? '0' + rmin : '' + rmin
         const time = `${hour}:${min}`
         return `${month} ${day} ${time}`
     }
     // name
     createName(){
-        const len = ~~(Math.random() * 15 + 3)
+        const len = ~~(Math.random() * 27 + 3)
         return Array.from({length: len}, _ => this.chars[~~(Math.random() * this.chars.length)]).join('')
     }
 }
