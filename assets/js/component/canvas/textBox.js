@@ -80,6 +80,7 @@ export default {
         const intervalTime = 20
         let startTime = 0
         const prompt = 'user@main-host: ~$ '
+        const commands = ['ls', 'cat']
         const ls = new LS()
 
         let currentCommand = ls.createCommand()
@@ -113,7 +114,7 @@ export default {
             ctx.value.clearRect(0, 0, width, height)
 
 
-            // logging 
+            // logging to canvas
             logs.forEach((log, idx) => {
                 const x = 0
                 const y = height - fontSize * (logs.length - idx)
