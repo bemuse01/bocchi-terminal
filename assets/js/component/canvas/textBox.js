@@ -36,7 +36,7 @@ export default {
         const box = ref()
         const boxStyle = computed(() => ({
             flex,
-            paddingBottom: '20px'
+            padding: '12px 12px 20px 12px',
         }))
 
 

@@ -13,7 +13,8 @@ export default {
         // container
         const containerStyle = computed(() => ({
             width: '360px',
-            height: '100%'
+            height: '100%',
+            borderRight: '1px solid #aaa'
         }))
 
 

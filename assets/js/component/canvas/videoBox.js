@@ -27,7 +27,9 @@ export default {
         // box
         const box = ref()
         const boxStyle = computed(() => ({
-            flex
+            flex,
+            padding: '12px',
+            borderBottom: '1px solid #aaa'
         }))
 
 
@@ -61,11 +63,21 @@ export default {
         // videos
         const srcs = Data.map(data => data.src)
         let videos = null
+        const maxPadding = 3
         const createVideo = () => {
             videos = new Videos(srcs)
         }
         const animateVideo = () => {
             videos.animate()
+        }
+        const drawLineNumber = (height) => {
+            const rows = ~~(height / fontSize)
+
+            for(let i = 0; i < rows; i++){
+                const text = i.toString()
+                const padding = Array.from({length: maxPadding - text.length}, _ => ' ').join('')
+                ctx.value.fillText(i, fontSize, i * fontSize)
+            }
         }
         const drawVideo = () => {
             if(!ctx.value) return
