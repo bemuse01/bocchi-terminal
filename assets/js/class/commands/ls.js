@@ -34,7 +34,7 @@ export default class{
         const owner = 'user user'
         const size = this.createSize()
         const date = this.createDate()
-        const name = this.createName()
+        const name = this.createName(3, 30)
         return [' ', auth, hardlink, owner, size, date, name].join('  ')
     }
     // auth
@@ -74,8 +74,8 @@ export default class{
         return `${month} ${day} ${time}`
     }
     // name
-    createName(){
-        const len = ~~(Math.random() * 27 + 3)
+    createName(min, max){
+        const len = ~~(Math.random() * (max - min) + min)
         return Array.from({length: len}, _ => this.chars[~~(Math.random() * this.chars.length)]).join('')
     }
 }

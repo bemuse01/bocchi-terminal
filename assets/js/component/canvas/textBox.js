@@ -1,3 +1,4 @@
+import Cat from '../../class/commands/cat.js'
 import LS from '../../class/commands/ls.js'
 
 export default {
@@ -74,37 +75,48 @@ export default {
 
 
         // text
-        const hex = '0123456789abcedf'
-        const textCols = 20
         const logs = []
         const intervalTime = 20
         let startTime = 0
         const prompt = 'user@main-host: ~$ '
         const commands = ['ls', 'cat']
         const ls = new LS()
+        const cat = new Cat()
 
         let currentCommand = ls.createCommand()
         let cmdIdx = 0
-        const randHex = () => hex[~~(Math.random() * hex.length)]
-        const generateText = () => {
-            return Array.from({length: textCols}, _ => randHex() + randHex()).join('  ')
-        }
         const generateCommand = () => {
-            // const command = commands[~~(Math.random() * commands.length)]
-            const main = 'ls'
+            const oldMain = currentCommand.split(' ')[0]
+            const main = commands[~~(Math.random() * commands.length)]
+            // const main = 'ls'
+            const num = ~~(Math.random() * 5 + 1)
+            let newCommand = ''
+
+            logs.push(prompt + currentCommand)
+
+            switch(oldMain){
+                case 'ls':
+                    logs.push(...ls.createInfos(num))
+                    break
+                case 'cat':
+                    logs.push(...cat.createInfos(num))
+                    break
+                default:
+                    break
+            }
 
             switch(main){
                 case 'ls':
-                    const num = ~~(Math.random() * 5 + 1)
-                    const newCommand = ls.createCommand()
-
-                    logs.push(prompt + currentCommand)
-                    logs.push(...ls.createInfos(num))
-
-                    return newCommand
+                    newCommand = ls.createCommand()
+                    break
+                case 'cat':
+                    newCommand = cat.createCommand()
+                    break
                 default:
-                    return
+                    break
             }
+
+            return newCommand
         }
         const drawText = () => {
             if(!ctx.value) return
