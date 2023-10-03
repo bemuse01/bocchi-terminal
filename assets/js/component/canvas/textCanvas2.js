@@ -84,9 +84,7 @@ export default {
         let currentCommand = curl.createCommand()
         let cmdIdx = 0
         let isDling = false
-        const generateCommand = () => {
 
-        }
         const drawText = () => {
             if(!ctx.value) return
 
@@ -114,11 +112,7 @@ export default {
 
                     item.text = `  ${name}  ${edge ? '' : state}`
                     
-                    if(edge){
-                        ctx.value.fillText('', 0, height - fontSize * (idx + 1))
-                    }else{
-                        ctx.value.fillText(item.text, 0, height - fontSize * (idx + 1))
-                    }
+                    ctx.value.fillText(item.text, 0, height - fontSize * (idx + 1))
                 })
 
                 if(dlList.every(item => item.done === item.max)){
