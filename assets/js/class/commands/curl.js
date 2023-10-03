@@ -18,7 +18,7 @@ export default class{
     // dl list
     createDlList(){
         const count = ~~(Math.random() * 4 + 1)
-        return Array.from({length: count}, _ => {
+        const temp = Array.from({length: count}, _ => {
 
             const name = this.createName(5, this.namePadding)
             const padding = Array.from({length: this.namePadding - name.length}, _ => ' ').join('')
@@ -30,6 +30,9 @@ export default class{
                 text: ''
             }
         })
+        temp.unshift({done: 1, max: 1, name: '', text: ''})
+        temp.push({done: 1, max: 1, name: '', text: ''})
+        return temp
     }
 
 

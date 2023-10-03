@@ -108,12 +108,17 @@ export default {
                     const {done, max, name} = item
                     const progress = ~~((done / max) * dlState.length)
                     const state = dlState.map((s, i) => i <= progress ? '■' : s).join('')
-    
+                    const edge = idx === 0 || idx === dlList.length - 1
+
                     item.done = Math.min(item.done + 1, max)
 
-                    item.text = `  ${name}  ${state}`
-    
-                    ctx.value.fillText(item.text, 0, height - fontSize * (idx + 1))
+                    item.text = `  ${name}  ${edge ? '' : state}`
+                    
+                    if(edge){
+                        ctx.value.fillText('', 0, height - fontSize * (idx + 1))
+                    }else{
+                        ctx.value.fillText(item.text, 0, height - fontSize * (idx + 1))
+                    }
                 })
 
                 if(dlList.every(item => item.done === item.max)){
