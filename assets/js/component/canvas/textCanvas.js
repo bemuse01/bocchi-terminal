@@ -120,18 +120,9 @@ export default {
         const drawText = () => {
             if(!ctx.value) return
 
+            
             const {width, height} = wrapper.value.getBoundingClientRect()
-
             ctx.value.clearRect(0, 0, width, height)
-
-
-            // logging to canvas
-            logs.forEach((log, idx) => {
-                const x = 0
-                const y = height - fontSize * (logs.length - idx)
-
-                ctx.value.fillText(log, x, y)
-            })
 
 
             // create new command
@@ -140,7 +131,14 @@ export default {
                 cmdIdx = 0
             }
 
+            
+            // logging to canvas
+            logs.forEach((log, idx) => {
+                const x = 0
+                const y = height - fontSize * (logs.length - idx)
 
+                ctx.value.fillText(log, x, y)
+            })
             // remove logs out of canvas
             if(logs.length > Math.ceil(height / fontSize)){
                 logs.splice(0, logs.length - Math.ceil(height / fontSize))

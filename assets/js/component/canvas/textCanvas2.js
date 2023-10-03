@@ -88,20 +88,25 @@ export default {
         const drawText = () => {
             if(!ctx.value) return
 
-            const {width, height} = wrapper.value.getBoundingClientRect()
 
+            const {width, height} = wrapper.value.getBoundingClientRect()
             ctx.value.clearRect(0, 0, width, height)
 
+
+            // complete writing command
             if(cmdIdx >= currentCommand.length && !isDling){
 
-                isDling = true
                 logs.push(prompt + currentCommand)
-                currentCommand = ''
                 dlList = curl.createDlList()
+                currentCommand = ''
+                isDling = true
 
             }
 
+
+            // start downloading
             if(isDling){
+
                 dlList.forEach((item, idx) => {
                     const {done, max, name} = item
                     const progress = ~~((done / max) * dlState.length)
@@ -115,6 +120,7 @@ export default {
                     ctx.value.fillText(item.text, 0, height - fontSize * (idx + 1))
                 })
 
+                // set new values when complete downloading
                 if(dlList.every(item => item.done === item.max)){
                     logs.push(...dlList.map(e => e.text).reverse())
                     dlList = []
@@ -122,20 +128,25 @@ export default {
                     isDling = false
                     cmdIdx = 0
                 }
+
             }
 
+
+            // logging
             logs.forEach((log, idx) => {
                 const x = 0
                 const y = height - fontSize * ((logs.length - idx) + dlList.length)
 
                 ctx.value.fillText(log, x, y)
             })
-
+            // remove logs out of canvas
             if(logs.length > Math.ceil(height / fontSize)){
                 logs.splice(0, logs.length - Math.ceil(height / fontSize))
                 // console.log(logs)
             }
 
+
+            // write command
             const command = prompt + currentCommand.slice(0, cmdIdx++)
             ctx.value.fillText(command, 0, height)
         }

@@ -1,6 +1,5 @@
 import VideoCanvas from './videoCanvas.js'
 import TextCanvas2 from './textCanvas2.js'
-import textCanvas2 from './textCanvas2.js'
 
 export default {
     components: {
