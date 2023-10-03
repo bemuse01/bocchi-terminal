@@ -1,14 +1,18 @@
-import Video from '../../class/video/video.js'
-import VideoBox from './videoBox.js'
-import TextBox from './textBox.js'
+import VideoCanvas from './videoCanvas.js'
+import TextCanvas from './textCanvas.js'
+import TextCanvas2 from './textCanvas2.js'
+import CanvasBox from './canvasBox.js'
+import {DIR_CONTAINER_WIDTH} from '../../const/style.js'
 
 export default {
     props: {
         flex: String
     },
     components: {
-        'video-box': VideoBox,
-        'text-box': TextBox,
+        'canvas-box': CanvasBox,
+        'video-canvas': VideoCanvas,
+        'text-canvas': TextCanvas,
+        'text-canvas-2': TextCanvas2
     },  
     template: `
         <div 
@@ -16,18 +20,46 @@ export default {
             :style="containerStyle"
         >
 
-            <video-box
+            <canvas-box
+                width="100%"
                 height="80%"
-            />
+                :borderBottom="border"
+            >
 
-            <text-box
-                height="20%"
-            />
+                <video-canvas 
+                    :borderRight="border" 
+                    padding="12px"
+                    width="68%"
+                />
+                <text-canvas-2 
+                    padding="12px"
+                    flex="1"
+                />
+
+            </canvas-box>
+            
+
+            <canvas-box
+                width="100%"
+                flex="1"
+            >
+
+                <text-canvas 
+                    :borderRight="border"
+                    padding="12px"
+                    width="50%"
+                />
+                <text-canvas 
+                    padding="12px"
+                    flex="1"
+                />
+
+            </canvas-box>
 
         </div>
     `,
-    setup(props){
-        const {ref, onMounted} = Vue
+    setup(){
+        const {computed} = Vue
         // const {useStore} = Vuex
 
 
@@ -35,22 +67,22 @@ export default {
         // const store = useStore()
 
 
-        // props
-        const {flex} = props
-
-
         // container
-        const containerStyle = ref({
-            width: '100%',
+        const border = '1px solid #777'
+        const containerStyle = computed(() => ({
+            position: 'absolute',
+            right: '0',
+            width: `calc(100% - ${DIR_CONTAINER_WIDTH}px)`,
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
-            flex,
-        })
+            borderLeft: border
+        }))
 
 
         return {
             containerStyle,
+            border
         }
     }
 }

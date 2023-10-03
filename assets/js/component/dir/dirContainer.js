@@ -1,3 +1,5 @@
+import {DIR_CONTAINER_WIDTH} from '../../const/style.js'
+
 export default {
     template: `
         <div
@@ -12,9 +14,10 @@ export default {
         
         // container
         const containerStyle = computed(() => ({
-            width: '360px',
+            position: 'absolute',
+            left: '0',
+            width: `${DIR_CONTAINER_WIDTH}px`,
             height: '100%',
-            borderRight: '1px solid #777'
         }))
 
 

@@ -1,32 +1,54 @@
-import TextCanvas from './textCanvas.js'
-
 export default {
-    components: {
-        'text-canvas': TextCanvas
-    },
     props: {
+        width: {
+            default: 'initial',
+            type: String
+        },
         height: {
-            default: '100%',
+            default: 'initial',
+            type: String,
+        },
+        flex: {
+            default: 'initial',
             type: String,
         },
         padding: {
-            default: '0',
+            default: 'initial',
             type: String
+        },
+        gap: {
+            default: 'initial',
+            type: String,   
         },
         flexDirection: {
             default: 'row',
             type: String
-        }
+        },
+        borderTop: {
+            default: 'initial',
+            type: String
+        },
+        borderRight: {
+            default: 'initial',
+            type: String
+        },
+        borderBottom: {
+            default: 'initial',
+            type: String
+        },
+        borderLeft: {
+            default: 'initial',
+            type: String
+        },
     },
     template: `
         <div
-            id="text-box"
+            class="canvas-box"
             :ref="el => box = el"
             :style="boxStyle"
         >
 
-            <text-canvas />
-            <text-canvas />
+            <slot></slot>
             
         </div>
     `,
@@ -35,15 +57,21 @@ export default {
 
 
         // props
-        const {height, padding, flexDirection} = props
+        const {width, height, padding, flexDirection, borderTop, borderRight, borderBottom, borderLeft, gap} = props
 
 
         // box
         const box = ref()
         const boxStyle = computed(() => ({
+            width,
             height,
             padding,
+            gap,
             flexDirection,
+            borderTop,
+            borderRight,
+            borderBottom,
+            borderLeft,
             display: 'flex',
         }))
       

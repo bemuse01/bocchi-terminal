@@ -4,7 +4,38 @@ import Data from '../../../src/data/data.js'
 
 export default {
     props: {
-        flex: String
+        width: {
+            default: 'initial',
+            type: String
+        },
+        height: {
+            default: 'initial',
+            type: String,
+        },
+        flex: {
+            default: 'initial',
+            type: String,
+        },
+        borderTop: {
+            default: 'initial',
+            type: String
+        },
+        borderRight: {
+            default: 'initial',
+            type: String
+        },
+        borderBottom: {
+            default: 'initial',
+            type: String
+        },
+        borderLeft: {
+            default: 'initial',
+            type: String
+        },
+        padding: {
+            default: 'initial',
+            type: String
+        },
     },
     template: `
         <div
@@ -29,14 +60,20 @@ export default {
 
 
         // props
-        const {flex} = props
+        const {width, height, flex, borderTop, borderRight, borderBottom, borderLeft, padding} = props
 
 
         // box
         const box = ref()
         const boxStyle = computed(() => ({
-            width: '100%',
-            height: '100%',
+            width,
+            height,
+            flex,
+            borderTop,
+            borderRight,
+            borderBottom,
+            borderLeft,
+            padding,
         }))
 
 
