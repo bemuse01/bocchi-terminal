@@ -117,7 +117,7 @@ export default {
                 })
 
                 if(dlList.every(item => item.done === item.max)){
-                    logs.push(...dlList.map(e => e.text))
+                    logs.push(...dlList.map(e => e.text).reverse())
                     dlList = []
                     currentCommand = curl.createCommand()
                     isDling = false
