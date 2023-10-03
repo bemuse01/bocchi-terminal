@@ -1,136 +1,50 @@
-// import Video from '../../class/video/video.js'
-import Videos from '../../class/video/videos.js'
-import Data from '../../../src/data/data.js'
+import VideoCanvas from './videoCanvas.js'
+import TextCanvas2 from './textCanvas2.js'
+import textCanvas2 from './textCanvas2.js'
 
 export default {
+    components: {
+        'video-canvas': VideoCanvas,
+        'text-canvas-2': TextCanvas2
+    },
     props: {
+        height: String,
         flex: String
     },
     template: `
         <div
+            id="video-box"
             :ref="el => box = el"
             :style="boxStyle"
         >
-            <canvas 
-                :ref="el => canvas = el"
-            />
+            
+            <video-canvas />
+            <text-canvas-2 />
+
         </div>
     `,
     setup(props){
-        const {onMounted, ref, computed} = Vue
+        const {ref, computed} = Vue
 
 
         // props
-        const {flex} = props
+        const {flex, height} = props
 
 
         // box
         const box = ref()
         const boxStyle = computed(() => ({
-            flex,
+            height,
             padding: '12px',
-            borderBottom: '1px solid #aaa'
+            display: 'flex',
+            flexDirection: 'row',
+            borderBottom: '1px solid #777'
         }))
-
-
-        // canvas
-        const canvas = ref()
-        const ctx = ref()
-        const fontSize = 10
-        const initCanvas = () => {
-            const {width, height} = box.value.getBoundingClientRect()
-
-            canvas.value.width = width
-            canvas.value.height = height
-            ctx.value = canvas.value.getContext('2d')
-            
-            ctx.value.textAlign = 'center'
-            ctx.value.font = `${fontSize}px UbuntuMonoRegular`
-            ctx.value.fillStyle = '#ffffff'
-        }
-        const resizeCanvas = () => {
-            const {width, height} = box.value.getBoundingClientRect()
-
-            canvas.value.width = width
-            canvas.value.height = height
-
-            ctx.value.textAlign = 'center'
-            ctx.value.font = `${fontSize}px UbuntuMonoRegular`
-            ctx.value.fillStyle = '#ffffff'
-        }
-
-
-        // videos
-        const srcs = Data.map(data => data.src)
-        let videos = null
-        const maxPadding = 3
-        const createVideo = () => {
-            videos = new Videos(srcs)
-        }
-        const animateVideo = () => {
-            videos.animate()
-        }
-        const drawLineNumber = (height) => {
-            const rows = ~~(height / fontSize)
-
-            for(let i = 0; i < rows; i++){
-                const text = i.toString()
-                const padding = Array.from({length: maxPadding - text.length}, _ => ' ').join('')
-                ctx.value.fillText(i, fontSize, i * fontSize)
-            }
-        }
-        const drawVideo = () => {
-            if(!ctx.value) return
-
-            const {width, height} = box.value.getBoundingClientRect()
-
-            ctx.value.clearRect(0, 0, width, height)
-
-            const data = videos.getData()
-
-            if(data.length === 0) return
-
-            const rows = data.length
-            const offsetY = height / 2 - (data.length * fontSize) / 2
-
-            for(let i = 0; i < rows; i++){
-                const characters = data[i].join(' ')
-                const x = width / 2
-                const y = offsetY + i * fontSize
-
-                ctx.value.fillText(characters, x, y)
-            }
-        }
-
-
-        // methods
-        const onWindowResize = () => {
-            resizeCanvas()
-        }
-        const animate = () => {
-            animateVideo()
-            drawVideo()
-
-            requestAnimationFrame(animate)
-        }
-        const init = () => {
-            initCanvas()
-            createVideo()
-
-            animate()
-
-            window.addEventListener('resize', () => onWindowResize())
-        } 
-
-
-        // hooks
-        onMounted(() => init())
 
 
         return{
             box,
             boxStyle,
-            canvas
         }
     }
 }

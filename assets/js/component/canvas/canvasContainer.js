@@ -17,11 +17,11 @@ export default {
         >
 
             <video-box
-                flex="0.8"
+                height="80%"
             />
 
             <text-box
-                flex="0.2"
+                height="20%"
             />
 
         </div>

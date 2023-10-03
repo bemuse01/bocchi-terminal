@@ -14,7 +14,7 @@ export default {
         const containerStyle = computed(() => ({
             width: '360px',
             height: '100%',
-            borderRight: '1px solid #aaa'
+            borderRight: '1px solid #777'
         }))
 
 
