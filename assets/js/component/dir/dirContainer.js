@@ -46,20 +46,21 @@ export default {
         const initItems = () => {
             FileTree.body.forEach(child => {
                 const {name, type, parent, state} = child
-                items.value.push({name, type, state, parent, depth})
-                searchTree(child, depth)
+                items.value.push({name, type, state, parent, parents: [], depth})
+                searchTree(child, depth, [])
             })
         }
-        const searchTree = (tree, depth) => {
-            const {children} = tree
+        const searchTree = (tree, depth, parents) => {
+            const {name, children} = tree
 
+            parents.push(name)
             depth++
 
             if(!children) return
 
-            children.forEach(child => {
-                items.value.push({name: child.name, type: child.type, state: child.state, parent: child.parent, depth})
-                if(child.children) searchTree(child, depth)
+            children.forEach((child, idx) => {
+                items.value.push({name: child.name, type: child.type, state: child.state, parents, depth})
+                if(child.children) searchTree(child, depth, [...parents])
             })
         }
 

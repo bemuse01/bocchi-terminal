@@ -122,7 +122,16 @@ export default {
                             name: "dummy",
                             type: "dir",
                             parent: "home",
-                            state: 0
+                            state: 0,
+                            children: [
+                                {
+                                    name: "dummy2",
+                                    type: "dir",
+                                    parent: "dummy",
+                                    state: 0,
+                                    children: []
+                                }
+                            ]
                         },
                     ]
                 },
