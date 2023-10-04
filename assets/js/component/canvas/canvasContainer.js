@@ -41,7 +41,7 @@ export default {
 
             <canvas-box
                 width="100%"
-                flex="1"
+                height="20%"
             >
 
                 <text-canvas 

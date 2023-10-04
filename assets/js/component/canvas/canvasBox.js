@@ -57,7 +57,7 @@ export default {
 
 
         // props
-        const {width, height, padding, flexDirection, borderTop, borderRight, borderBottom, borderLeft, gap} = props
+        const {width, height, flex, padding, flexDirection, borderTop, borderRight, borderBottom, borderLeft, gap} = props
 
 
         // box
@@ -67,6 +67,7 @@ export default {
             height,
             padding,
             gap,
+            flex,
             flexDirection,
             borderTop,
             borderRight,

@@ -33,6 +33,8 @@ body{
     overflow: hidden;
     position: absolute;
     background: black;
+    font-family: UbuntuMonoRegular;
+    color: white;
 }
 div#wrap{
     position: absolute;
@@ -45,41 +47,9 @@ div#wrap{
 canvas{
     outline: none;
 }
-
-
-/* progress */
-/* div.progress{
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100vw;
-    height: 40px;
+.dir-item{
+    background: transparent;
 }
-div.progress-hover{
-    position: absolute;
-    bottom: 0;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.5);
-    transform: scaleY(0.1);
-    transform-origin: bottom;
-    transition: transform 0.3s, opacity 0.3s;
-
+.dir-item:hover{
+    background: rgba(255, 255, 255, 0.2);
 }
-div.progress-bar{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    transform: scaleY(0.1);
-    transform-origin: bottom;
-    transition: transform 0.3s, opacity 0.3s;
-}
-div.progress-bar > div{
-    width: 100%;
-    height: 100%;
-    background: white;
-    transform-origin: left;
-}
-div.progress:hover > div{
-    transform: scaleY(0.4);
-} */

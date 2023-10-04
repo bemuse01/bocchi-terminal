@@ -10,97 +10,97 @@
 //             name: "bocchi-terminal",
 //             type: "dir",
 //             parent: "",
-//             state: 1,
+//             state: true,
 //         },
 //         {
 //             name: "home",
 //             type: "dir",
 //             parent: "bocchi-terminal",
-//             state: 0
+//             state: false
 //         },
 //         {
 //             name: "desktop",
 //             type: "dir",
 //             parent: "bocchi-terminal",
-//             state: 1
+//             state: true
 //         },
 //         {
 //             name: "temp",
 //             type: "dir",
 //             parent: "bocchi-terminal",
-//             state: 0
+//             state: false
 //         },
 //         {
 //             name: "downloads",
 //             type: "dir",
 //             parent: "bocchi-terminal",
-//             state: 0
+//             state: false
 //         },
 //         {
 //             name: "scripts",
 //             type: "dir",
 //             parent: "bocchi-terminal",
-//             state: 0
+//             state: false
 //         },
 //         {
 //             name: "logs",
 //             type: "dir",
 //             parent: "bocchi-terminal",
-//             state: 0
+//             state: false
 //         },
 //         {
 //             name: "backups",
 //             type: "dir",
 //             parent: "bocchi-terminal",
-//             state: 0
+//             state: false
 //         },
 //         {
 //             name: "systems",
 //             type: "dir",
 //             parent: "bocchi-terminal",
-//             state: 0
+//             state: false
 //         },
 //         {
 //             name: "docs",
 //             type: "dir",
 //             parent: "bocchi-terminal",
-//             state: 0
+//             state: false
 //         },
 //         {
 //             name: "BTR",
 //             type: "dir",
 //             parent: "desktop",
-//             state: 1
+//             state: true
 //         },
 //         {
 //             name: "bocchi.mp4",
 //             type: "video",
 //             parent: "BTR",
-//             state: 0
+//             state: false
 //         },
 //         {
 //             name: "kessoku.mp4",
 //             type: "video",
 //             parent: "BTR",
-//             state: 0
+//             state: false
 //         },
 //         {
 //             name: "kita.mp4",
 //             type: "video",
 //             parent: "BTR",
-//             state: 0
+//             state: false
 //         },
 //         {
 //             name: "nijika.mp4",
 //             type: "video",
 //             parent: "BTR",
-//             state: 0
+//             state: false
 //         },
 //         {
 //             name: "ryo.mp4",
 //             type: "video",
 //             parent: "BTR",
-//             state: 0
+//             state: false
 //         }
 //     ]
 // }
@@ -110,25 +110,25 @@ export default {
             name: "bocchi-terminal",
             type: "dir",
             parent: null,
-            state: 1,
+            state: true,
             children: [
                 {
                     name: "home",
                     type: "dir",
                     parent: "bocchi-terminal",
-                    state: 0,
+                    state: false,
                     children: [
                         {
                             name: "dummy",
                             type: "dir",
                             parent: "home",
-                            state: 0,
+                            state: false,
                             children: [
                                 {
                                     name: "dummy2",
                                     type: "dir",
                                     parent: "dummy",
-                                    state: 0,
+                                    state: false,
                                     children: []
                                 }
                             ]
@@ -139,93 +139,93 @@ export default {
                     name: "desktop",
                     type: "dir",
                     parent: "bocchi-terminal",
-                    state: 1,
+                    state: true,
                     children: []
                 },
                 {
                     name: "temp",
                     type: "dir",
                     parent: "bocchi-terminal",
-                    state: 0,
+                    state: false,
                     children: []
                 },
                 {
                     name: "downloads",
                     type: "dir",
                     parent: "bocchi-terminal",
-                    state: 0,
+                    state: false,
                     children: []
                 },
                 {
                     name: "scripts",
                     type: "dir",
                     parent: "bocchi-terminal",
-                    state: 0,
+                    state: false,
                     children: []
                 },
                 {
                     name: "logs",
                     type: "dir",
                     parent: "bocchi-terminal",
-                    state: 0,
+                    state: false,
                     children: []
                 },
                 {
                     name: "backups",
                     type: "dir",
                     parent: "bocchi-terminal",
-                    state: 0,
+                    state: false,
                     children: []
                 },
                 {
                     name: "systems",
                     type: "dir",
                     parent: "bocchi-terminal",
-                    state: 0,
+                    state: false,
                     children: []
                 },
                 {
                     name: "docs",
                     type: "dir",
                     parent: "bocchi-terminal",
-                    state: 0,
+                    state: false,
                     children: []
                 },
                 {
                     name: "BTR",
                     type: "dir",
                     parent: "bocchi-terminal",
-                    state: 1,
+                    state: true,
                     children: [
                         {
                             name: "bocchi.mp4",
                             type: "video",
                             parent: "BTR",
-                            state: 0
+                            state: false
                         },
                         {
                             name: "kessoku.mp4",
                             type: "video",
                             parent: "BTR",
-                            state: 0
+                            state: false
                         },
                         {
                             name: "kita.mp4",
                             type: "video",
                             parent: "BTR",
-                            state: 0
+                            state: false
                         },
                         {
                             name: "nijika.mp4",
                             type: "video",
                             parent: "BTR",
-                            state: 0
+                            state: false
                         },
                         {
                             name: "ryo.mp4",
                             type: "video",
                             parent: "BTR",
-                            state: 0
+                            state: false
                         }
                     ]
                 },
