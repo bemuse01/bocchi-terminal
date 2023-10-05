@@ -26,7 +26,8 @@ export default {
         const boxStyle = computed(() => ({
             width: '100%',
             height: '100%',
-            padding
+            padding,
+            overflow: 'auto'
         }))
 
 

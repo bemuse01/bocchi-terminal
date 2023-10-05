@@ -51,5 +51,18 @@ canvas{
     background: transparent;
 }
 .item:hover{
-    background: rgba(255, 255, 255, 0.2);
+    background: #10f87122;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track{
+    background: transparent;
+}
+::-webkit-scrollbar-thumb{
+    background: #10f87155;
+}
+::-webkit-scrollbar-thumb:hover{
+    background: #10f871ee;
 }

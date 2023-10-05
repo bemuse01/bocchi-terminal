@@ -14,6 +14,8 @@ export default {
         <div
             id="dir-container" 
             :style="containerStyle"
+            @mouseenter="onMouseenter"
+            @mouseleave="onMouseleave"
         >
 
             <dir-box
@@ -30,6 +32,7 @@ export default {
                         :depth="item.depth"
                         :visible="item.visible"
                         @click="onClickDir(item)"
+                        :hover="hover"
                     />
 
                     <file-item
@@ -38,6 +41,7 @@ export default {
                         :depth="item.depth"
                         :visible="item.visible"
                         @click="onClickFile(item)"
+                        :hover="hover"
                     />
 
                 </template>
@@ -56,13 +60,21 @@ export default {
         
         
         // container
+        const hover = ref(false)
         const containerStyle = computed(() => ({
             position: 'absolute',
             left: '0',
             width: `${DIR_CONTAINER_WIDTH}px`,
             height: '100%',
-            color: MAIN_COLOR
+            color: MAIN_COLOR,
         }))
+        const onMouseenter = () => {
+            hover.value = true
+            console.log('work')
+        }
+        const onMouseleave = () => {
+            hover.value = false
+        }
 
 
         // data
@@ -150,8 +162,11 @@ export default {
         return {
             containerStyle,
             items,
+            hover,
+            onMouseenter,
+            onMouseleave,
             onClickDir,
-            onClickFile
+            onClickFile,
         }
     }
 }

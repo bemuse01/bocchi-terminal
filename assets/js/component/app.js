@@ -1,5 +1,6 @@
 import DirContainer from './dir/dirContainer.js'
 import CanvasContainer from './canvas/canvasContainer.js'
+import {BORDER, MAIN_COLOR} from '../const/style.js'
 
 export default {
     components: {
@@ -29,7 +30,8 @@ export default {
             width: '100vw',
             height: '100vh',
             display: 'flex',
-            flexDirection: 'row'
+            flexDirection: 'row',
+            border: `2px solid ${MAIN_COLOR}33`
         }))
 
 
