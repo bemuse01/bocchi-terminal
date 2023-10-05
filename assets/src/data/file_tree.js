@@ -1,4 +1,5 @@
 import Data from './data.js'
+import Method from '../../js/method/method.js'
 
 const root = 'bocchi-terminal'
 const dirs = ['home', 'desktop', 'temp', 'backups', 'docs', 'systems', 'scripts', 'logs', 'downloads']
@@ -15,12 +16,14 @@ const createChildren = (length, chance, parent, depth) => {
     depth++
 
     return Array.from({length}, _ => {
+        const id = Method.uuidv4()
         const name = createName(4, 8)
         const type = 'dir'
         const chance = Math.random() < 0.5
         const childrenCount = ~~(Math.random() * 1 + 1)
 
         const obj = {
+            id,
             name,
             type,
             parent,
@@ -34,10 +37,12 @@ const createChildren = (length, chance, parent, depth) => {
 const createDirs = () => {
     const temp = []
     dirs.forEach(dir => {
+        const id = Method.uuidv4()
         const state = true
         const chance = 1
         const childrenCount = ~~(Math.random() * 2 + 1)
         temp.push({
+            id,
             name: dir,
             type: 'dir',
             parent: 'bocchi-terminal',
@@ -48,17 +53,20 @@ const createDirs = () => {
     return temp
 }
 const createBTR = () => {
+    const id = Method.uuidv4()
     const name = 'BTR'
     const type = 'dir'
     const parent = root
     const state = true
     const children = Array.from(Data, e => ({
+        id: Method.uuidv4(),
         name: e.filename,
         type: 'video',
         parent: name,
     }))
 
     return{
+        id,
         name,
         type,
         parent,
@@ -71,6 +79,7 @@ const createBTR = () => {
 export default {
     body: [
         {
+            id: Method.uuidv4(),
             name: root,
             type: "dir",
             parent: null,

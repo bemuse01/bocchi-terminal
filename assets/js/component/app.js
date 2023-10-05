@@ -19,7 +19,7 @@ export default {
         </div>
     `,
     setup(){
-        const {computed, onMounted} = Vue
+        const {computed} = Vue
 
 
         // app
@@ -34,21 +34,7 @@ export default {
             border: `2px solid ${MAIN_COLOR}33`
         }))
 
-
-        // method
-        const animate = () => {
-            TWEEN.update()
-
-            requestAnimationFrame(animate)
-        }
-
-
-        // hook
-        onMounted(() => {
-            animate()
-        })
-
-
+        
         return{
             appStyle
         }

@@ -70,7 +70,6 @@ export default {
         }))
         const onMouseenter = () => {
             hover.value = true
-            console.log('work')
         }
         const onMouseleave = () => {
             hover.value = false
@@ -82,27 +81,29 @@ export default {
         let depth = 0
         const initItems = () => {
             FileTree.body.forEach(child => {
-                const {name, type, parent, state, children} = child
-                items.value.push({name, type, state, parent, parents: [], depth, visible: true, children: children.map(e => e.name)})
+                const {id, name, type, parent, state, children} = child
+                items.value.push({id, name, type, state, parent, parents: [], depth, visible: true, children: children.map(e => e.name)})
                 searchTree(child, depth, [])
             })
         }
         const searchTree = (tree, depth, parents) => {
-            const {name, children, state} = tree
+            const {id, children, state} = tree
 
-            parents.push(name)
+            parents.push(id)
             depth++
 
             if(!children) return
 
             children.forEach(child => {
                 items.value.push({
+                    id: child.id,
                     name: child.name, 
                     type: child.type, 
                     state: child.state, 
-                    parent: name, parents, 
+                    parent: id, 
+                    parents, 
                     visible: state ? true : false, 
-                    children: child.children ? child.children.map(e => e.name) : [],
+                    children: child.children ? child.children.map(e => e.id) : [],
                     depth
                 })
                 if(child.children) searchTree(child, depth, [...parents])
@@ -114,7 +115,7 @@ export default {
         const searchChildren = (item) => {
             if(item.state){
                 items.value.forEach(item2 => {
-                    if(item.children.includes(item2.name)) {
+                    if(item.children.includes(item2.id)) {
                         item2.visible = true
                         searchChildren(item2)
                     }
@@ -122,19 +123,19 @@ export default {
             }
         }
         const onClickDir = (item) => {
-            const {name} = item
+            const {id} = item
             item.state = !item.state
 
             if(item.state){
                 items.value.forEach(item => {
-                    if(item.parent === name){
+                    if(item.parent === id){
                         item.visible = true
                         searchChildren(item)
                     }
                 })
             }else{
                 items.value.forEach(item => {
-                    if(item.parents.includes(name)) item.visible = false
+                    if(item.parents.includes(id)) item.visible = false
                 })
             }
         }
