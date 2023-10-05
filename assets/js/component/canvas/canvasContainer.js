@@ -30,12 +30,12 @@ export default {
                     :borderRight="border"
                     :currentVideo="currentVideo"
                     padding="12px"
-                    width="68%"
+                    width="66%"
                     :color="color"
                 />
                 <text-canvas-2 
                     padding="12px"
-                    flex="1"
+                    width="34%"
                     :color="color"
                 />
 
@@ -55,7 +55,7 @@ export default {
                 />
                 <text-canvas 
                     padding="12px"
-                    flex="1"
+                    width="50%"
                     :color="color"
                 />
 
