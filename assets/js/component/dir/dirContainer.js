@@ -130,7 +130,8 @@ export default {
 
         // file
         const onClickFile = (item) => {
-            const {name} = item
+            const {name, type} = item
+            if(type !== 'video') return
             store.dispatch('video/setCurrentVideo', name)
         }
 

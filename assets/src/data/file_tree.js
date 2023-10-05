@@ -1,200 +1,65 @@
-// export default {
-//     head: [
-//         "name",
-//         "type",
-//         "parent",
-//         "state"
-//     ],
-//     body: [
-//         {
-//             name: "bocchi-terminal",
-//             type: "dir",
-//             parent: "",
-//             state: true,
-//         },
-//         {
-//             name: "home",
-//             type: "dir",
-//             parent: "bocchi-terminal",
-//             state: false
-//         },
-//         {
-//             name: "desktop",
-//             type: "dir",
-//             parent: "bocchi-terminal",
-//             state: true
-//         },
-//         {
-//             name: "temp",
-//             type: "dir",
-//             parent: "bocchi-terminal",
-//             state: false
-//         },
-//         {
-//             name: "downloads",
-//             type: "dir",
-//             parent: "bocchi-terminal",
-//             state: false
-//         },
-//         {
-//             name: "scripts",
-//             type: "dir",
-//             parent: "bocchi-terminal",
-//             state: false
-//         },
-//         {
-//             name: "logs",
-//             type: "dir",
-//             parent: "bocchi-terminal",
-//             state: false
-//         },
-//         {
-//             name: "backups",
-//             type: "dir",
-//             parent: "bocchi-terminal",
-//             state: false
-//         },
-//         {
-//             name: "systems",
-//             type: "dir",
-//             parent: "bocchi-terminal",
-//             state: false
-//         },
-//         {
-//             name: "docs",
-//             type: "dir",
-//             parent: "bocchi-terminal",
-//             state: false
-//         },
-//         {
-//             name: "BTR",
-//             type: "dir",
-//             parent: "desktop",
-//             state: true
-//         },
-//         {
-//             name: "bocchi.mp4",
-//             type: "video",
-//             parent: "BTR",
-//             state: false
-//         },
-//         {
-//             name: "kessoku.mp4",
-//             type: "video",
-//             parent: "BTR",
-//             state: false
-//         },
-//         {
-//             name: "kita.mp4",
-//             type: "video",
-//             parent: "BTR",
-//             state: false
-//         },
-//         {
-//             name: "nijika.mp4",
-//             type: "video",
-//             parent: "BTR",
-//             state: false
-//         },
-//         {
-//             name: "ryo.mp4",
-//             type: "video",
-//             parent: "BTR",
-//             state: false
-//         }
-//     ]
-// }
+const root = 'bocchi-terminal'
+
+const dirs = ['home', 'desktop', 'temp', 'backups', 'docs', 'systems', 'scripts', 'logs', 'downloads']
+const chars = '0123456789abcdefghijklmnopqrstuvwxyz-_'
+
+const createName = (min, max) => {
+    const len = ~~(Math.random() * (max - min) + min)
+    return Array.from({length: len}, _ => chars[~~(Math.random() * chars.length)]).join('')
+}
+const createChildren = (length, chance, parent, depth) => {
+    if(!chance) return []
+    if(depth > 2) return []
+
+    depth++
+
+    return Array.from({length}, _ => {
+        const name = createName(4, 8)
+        const type = 'dir'
+        const chance = Math.random() < 0.5
+
+        const obj = {
+            name,
+            type,
+            parent,
+            state: true,
+            children: createChildren(1, chance, name, depth)
+        }
+
+        return obj
+    })
+}
+const createDirs = () => {
+    const temp = []
+    dirs.forEach(dir => {
+        const state = true
+        const chance = Math.random() < 0.5
+        const childrenCount = (Math.random() * 1 + 1)
+        temp.push({
+            name: dir,
+            type: 'dir',
+            parent: 'bocchi-terminal',
+            state,
+            children: createChildren(childrenCount, chance, dir, 0)
+        })
+    })
+    return temp
+}
+
+
 export default {
     body: [
         {
-            name: "bocchi-terminal",
+            name: root,
             type: "dir",
             parent: null,
             state: true,
             children: [
-                {
-                    name: "home",
-                    type: "dir",
-                    parent: "bocchi-terminal",
-                    state: false,
-                    children: [
-                        {
-                            name: "dummy",
-                            type: "dir",
-                            parent: "home",
-                            state: false,
-                            children: [
-                                {
-                                    name: "dummy2",
-                                    type: "dir",
-                                    parent: "dummy",
-                                    state: false,
-                                    children: []
-                                }
-                            ]
-                        },
-                    ]
-                },
-                {
-                    name: "desktop",
-                    type: "dir",
-                    parent: "bocchi-terminal",
-                    state: true,
-                    children: []
-                },
-                {
-                    name: "temp",
-                    type: "dir",
-                    parent: "bocchi-terminal",
-                    state: false,
-                    children: []
-                },
-                {
-                    name: "downloads",
-                    type: "dir",
-                    parent: "bocchi-terminal",
-                    state: false,
-                    children: []
-                },
-                {
-                    name: "scripts",
-                    type: "dir",
-                    parent: "bocchi-terminal",
-                    state: false,
-                    children: []
-                },
-                {
-                    name: "logs",
-                    type: "dir",
-                    parent: "bocchi-terminal",
-                    state: false,
-                    children: []
-                },
-                {
-                    name: "backups",
-                    type: "dir",
-                    parent: "bocchi-terminal",
-                    state: false,
-                    children: []
-                },
-                {
-                    name: "systems",
-                    type: "dir",
-                    parent: "bocchi-terminal",
-                    state: false,
-                    children: []
-                },
-                {
-                    name: "docs",
-                    type: "dir",
-                    parent: "bocchi-terminal",
-                    state: false,
-                    children: []
-                },
+                ...createDirs(),
                 {
                     name: "BTR",
                     type: "dir",
-                    parent: "bocchi-terminal",
+                    parent: root,
                     state: true,
                     children: [
                         {
