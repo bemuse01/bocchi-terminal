@@ -27,7 +27,8 @@ export default {
             >
 
                 <video-canvas 
-                    :borderRight="border" 
+                    :borderRight="border"
+                    :currentVideo="currentVideo"
                     padding="12px"
                     width="68%"
                 />
@@ -60,11 +61,15 @@ export default {
     `,
     setup(){
         const {computed} = Vue
-        // const {useStore} = Vuex
+        const {useStore} = Vuex
 
 
         // store
-        // const store = useStore()
+        const store = useStore()
+        
+
+        // video
+        const currentVideo = computed(() => store.getters['video/getCurrentVideo'])
 
 
         // container
@@ -82,7 +87,8 @@ export default {
 
         return {
             containerStyle,
-            border
+            border,
+            currentVideo
         }
     }
 }

@@ -36,6 +36,7 @@ export default {
             default: 'initial',
             type: String
         },
+        currentVideo: String
     },
     template: `
         <div
@@ -56,11 +57,12 @@ export default {
         </div>
     `,
     setup(props){
-        const {onMounted, ref, computed} = Vue
+        const {onMounted, ref, computed, toRefs, watch} = Vue
 
 
         // props
         const {width, height, flex, borderTop, borderRight, borderBottom, borderLeft, padding} = props
+        const {currentVideo} = toRefs(props)
 
 
         // box
@@ -127,6 +129,17 @@ export default {
         const animateVideo = () => {
             videos.animate()
         }
+        const playVideo = (video) => {
+            videos.playVideo(video)
+        }
+        const setVideos = async () => {
+            await videos.setVideos()
+        }
+        const initVideo = async () => {
+            createVideo()
+            await setVideos()
+            playVideo(currentVideo.value)
+        }
         const drawLineNumber = (height) => {
             const rows = ~~(height / fontSize)
 
@@ -158,6 +171,9 @@ export default {
                 ctx.value.fillText(characters, x, y)
             }
         }
+        watch(currentVideo, (curVideo) => {
+            playVideo(curVideo)
+        })
 
 
         // methods
@@ -172,7 +188,7 @@ export default {
         }
         const init = () => {
             initCanvas()
-            createVideo()
+            initVideo()
 
             animate()
 

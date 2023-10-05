@@ -2,11 +2,13 @@ import {DIR_CONTAINER_WIDTH} from '../../const/style.js'
 import FileTree from '../../../src/data/file_tree.js'
 import DirBox from './dirBox.js'
 import DirItem from './dirItem.js'
+import FileItem from './fileItem.js'
 
 export default {
     components: {
         'dir-box': DirBox,
-        'dir-item': DirItem
+        'dir-item': DirItem,
+        'file-item': FileItem
     },
     template: `
         <div
@@ -18,13 +20,27 @@ export default {
                 padding="6px"
             >
 
-                <dir-item 
+                <template
                     v-for="item in items"
-                    :name="item.name"
-                    :depth="item.depth"
-                    :visible="item.visible"
-                    @click="onClickDir(item)"
-                />               
+                >
+
+                    <dir-item
+                        v-if="item.type === 'dir'"
+                        :name="item.name"
+                        :depth="item.depth"
+                        :visible="item.visible"
+                        @click="onClickDir(item)"
+                    />
+
+                    <file-item
+                        v-else
+                        :name="item.name"
+                        :depth="item.depth"
+                        :visible="item.visible"
+                        @click="onClickFile(item)"
+                    />
+
+                </template>
 
             </dir-box>
 
@@ -32,6 +48,11 @@ export default {
     `,
     setup(){
         const {ref, computed, onMounted} = Vue
+        const {useStore} = Vuex
+
+
+        // store
+        const store = useStore()
         
         
         // container
@@ -80,8 +101,10 @@ export default {
         const searchChildren = (item) => {
             if(item.state){
                 items.value.forEach(item2 => {
-                    if(item.children.includes(item2.name)) item2.visible = true
-                    searchChildren(item2)
+                    if(item.children.includes(item2.name)) {
+                        item2.visible = true
+                        searchChildren(item2)
+                    }
                 })
             }
         }
@@ -93,11 +116,7 @@ export default {
                 items.value.forEach(item => {
                     if(item.parent === name){
                         item.visible = true
-                        // if(item.state){
-                        //     items.value.forEach(item2 => {
-                        //         if(item.children.includes(item2.name)) item2.visible = true
-                        //     })
-                        // }
+                        searchChildren(item)
                     }
                 })
             }else{
@@ -105,6 +124,13 @@ export default {
                     if(item.parents.includes(name)) item.visible = false
                 })
             }
+        }
+
+
+        // file
+        const onClickFile = (item) => {
+            const {name} = item
+            store.dispatch('video/setCurrentVideo', name)
         }
 
 
@@ -122,7 +148,8 @@ export default {
         return {
             containerStyle,
             items,
-            onClickDir
+            onClickDir,
+            onClickFile
         }
     }
 }

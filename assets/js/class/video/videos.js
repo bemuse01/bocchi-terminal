@@ -8,6 +8,7 @@ export default class{
         this.step = 2
         this.chars = '@%#*+=-:. '
         this.threshold = ~~(255 * ((this.chars.length - 1) / this.chars.length))
+        this.currentVideo = null
 
         this.init()
     }
@@ -15,23 +16,19 @@ export default class{
 
     // init
     async init(){
-        this.videos = await this.loadVideos()
         this.initCanvas()
-        this.initVideo()
     }
 
 
     // canvas
     initCanvas(){
         this.createCanvas()
-        this.setCanvasSize()
     }
     createCanvas(){
         this.canvas = document.createElement('canvas')
         this.ctx = this.canvas.getContext('2d', {willReadFrequently: true})
     }
-    setCanvasSize(){
-        const video = this.getCurrentVideo()
+    setCanvasSize(video){
         this.canvas.width = video.videoWidth
         this.canvas.height = video.videoHeight
     }
@@ -39,25 +36,24 @@ export default class{
 
     // video
     initVideo(){
-        this.playCurrentVideo()
-        this.setVideo()
     }
-    setVideo(){
+    async setVideos(){
+        this.videos = await this.loadVideos()
+    }
+    playVideo(name){
         this.videos.forEach(video => {
-            video.addEventListener('ended', () => {
-                this.idx = (this.idx + 1) % this.videos.length
-                this.playCurrentVideo()
-                this.setCanvasSize()
-            })
-        })
-    }
-    playCurrentVideo(){
-        const video = this.videos[this.idx]
+            const {src} = video
 
-        video.play()
-    }
-    setIdx(){
-        this.idx = (this.idx + 1) % this.videos.length
+            if(src.includes(name)){
+
+                this.currentVideo = video
+                video.play()
+                this.setCanvasSize(video)
+            }else{
+                video.pause()
+                video.currentTime = 0
+            }
+        })
     }
 
 
@@ -67,7 +63,7 @@ export default class{
             const video = document.createElement('video')
             video.src = src
             video.muted = true
-            // video.loop = true
+            video.loop = true
 
             video.onloadedmetadata = () => {
                 resolve(video)
@@ -83,9 +79,6 @@ export default class{
 
 
     // 
-    getCurrentVideo(){
-        return this.videos[this.idx]
-    }
     getData(){
         return this.data
     }
@@ -95,7 +88,7 @@ export default class{
         this.getVideoData()
     }
     getVideoData(){
-        const video = this.getCurrentVideo()
+        const video = this.currentVideo
 
         if(!video) return
 
