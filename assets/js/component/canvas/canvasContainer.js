@@ -2,7 +2,7 @@ import VideoCanvas from './videoCanvas.js'
 import TextCanvas from './textCanvas.js'
 import TextCanvas2 from './textCanvas2.js'
 import CanvasBox from './canvasBox.js'
-import {DIR_CONTAINER_WIDTH} from '../../const/style.js'
+import {DIR_CONTAINER_WIDTH, MAIN_COLOR, BORDER, FONT_SIZE_RATIO, FONT_SIZE_RATIO_2} from '../../const/style.js'
 
 export default {
     props: {
@@ -31,10 +31,12 @@ export default {
                     :currentVideo="currentVideo"
                     padding="12px"
                     width="68%"
+                    :color="color"
                 />
                 <text-canvas-2 
                     padding="12px"
                     flex="1"
+                    :color="color"
                 />
 
             </canvas-box>
@@ -49,10 +51,12 @@ export default {
                     :borderRight="border"
                     padding="12px"
                     width="50%"
+                    :color="color"
                 />
                 <text-canvas 
                     padding="12px"
                     flex="1"
+                    :color="color"
                 />
 
             </canvas-box>
@@ -60,7 +64,7 @@ export default {
         </div>
     `,
     setup(){
-        const {computed} = Vue
+        const {computed, ref, onMounted} = Vue
         const {useStore} = Vuex
 
 
@@ -73,7 +77,7 @@ export default {
 
 
         // container
-        const border = '1px solid #777'
+        const border = BORDER
         const containerStyle = computed(() => ({
             position: 'absolute',
             right: '0',
@@ -83,12 +87,29 @@ export default {
             flexDirection: 'column',
             borderLeft: border
         }))
+        const color = MAIN_COLOR
+
+
+        // methods
+        const onWindowResize = () => {
+            setFontSize()
+        }
+        const init = () => {
+            setFontSize()
+
+            window.addEventListener('resize', () => onWindowResize())
+        }
+
+
+        // hooks
+        onMounted(() => init())
 
 
         return {
             containerStyle,
             border,
-            currentVideo
+            currentVideo,
+            color,
         }
     }
 }

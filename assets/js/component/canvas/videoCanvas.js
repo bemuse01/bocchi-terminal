@@ -1,6 +1,7 @@
 // import Video from '../../class/video/video.js'
 import Videos from '../../class/video/videos.js'
 import Data from '../../../src/data/data.js'
+import {FONT_SIZE_RATIO_2} from '../../const/style.js'
 
 export default {
     props: {
@@ -36,7 +37,11 @@ export default {
             default: 'initial',
             type: String
         },
-        currentVideo: String
+        currentVideo: String,
+        color: {
+            default: '#ffffff',
+            type: String
+        }
     },
     template: `
         <div
@@ -61,7 +66,7 @@ export default {
 
 
         // props
-        const {width, height, flex, borderTop, borderRight, borderBottom, borderLeft, padding} = props
+        const {width, height, flex, borderTop, borderRight, borderBottom, borderLeft, padding, color} = props
         const {currentVideo} = toRefs(props)
 
 
@@ -95,17 +100,20 @@ export default {
             height: '100%'
         }))
         const ctx = ref()
-        const fontSize = 10
+        const fontSize = ref(0)
         const initCanvas = () => {
             const {width, height} = wrapper.value.getBoundingClientRect()
 
             canvas.value.width = width
             canvas.value.height = height
             ctx.value = canvas.value.getContext('2d')
+
+            const size = Math.min(window.innerWidth, window.innerHeight)
+            fontSize.value = ~~(size * FONT_SIZE_RATIO_2)
             
             ctx.value.textAlign = 'center'
-            ctx.value.font = `${fontSize}px UbuntuMonoRegular`
-            ctx.value.fillStyle = '#ffffff'
+            ctx.value.font = `${fontSize.value}px UbuntuMonoRegular`
+            ctx.value.fillStyle = color
         }
         const resizeCanvas = () => {
             const {width, height} = wrapper.value.getBoundingClientRect()
@@ -113,9 +121,12 @@ export default {
             canvas.value.width = width
             canvas.value.height = height
 
+            const size = Math.min(window.innerWidth, window.innerHeight)
+            fontSize.value = ~~(size * FONT_SIZE_RATIO_2)
+
             ctx.value.textAlign = 'center'
-            ctx.value.font = `${fontSize}px UbuntuMonoRegular`
-            ctx.value.fillStyle = '#ffffff'
+            ctx.value.font = `${fontSize.value}px UbuntuMonoRegular`
+            ctx.value.fillStyle = color
         }
 
 
@@ -141,12 +152,12 @@ export default {
             playVideo(currentVideo.value)
         }
         const drawLineNumber = (height) => {
-            const rows = ~~(height / fontSize)
+            const rows = ~~(height / fontSize.value)
 
             for(let i = 0; i < rows; i++){
                 const text = i.toString()
                 const padding = Array.from({length: maxPadding - text.length}, _ => ' ').join('')
-                ctx.value.fillText(i, fontSize, i * fontSize)
+                ctx.value.fillText(i, fontSize.value, i * fontSize.value)
             }
         }
         const drawVideo = () => {
@@ -161,12 +172,12 @@ export default {
             if(data.length === 0) return
 
             const rows = data.length
-            const offsetY = height / 2 - (data.length * fontSize) / 2
+            const offsetY = height / 2 - (data.length * fontSize.value) / 2
 
             for(let i = 0; i < rows; i++){
                 const characters = data[i].join(' ')
                 const x = width / 2
-                const y = offsetY + i * fontSize
+                const y = offsetY + i * fontSize.value
 
                 ctx.value.fillText(characters, x, y)
             }

@@ -1,4 +1,5 @@
 import Curl from '../../class/commands/curl.js'
+import {FONT_SIZE_RATIO} from '../../const/style.js'
 
 export default {
     props: {
@@ -34,6 +35,10 @@ export default {
             default: 'initial',
             type: String
         },
+        color: {
+            default: '#ffffff',
+            type: String
+        },
     },
     template: `
         <div
@@ -55,12 +60,11 @@ export default {
         </div>
     `,
     setup(props){
-        const {onMounted, ref, computed} = Vue
+        const {onMounted, ref, computed, toRefs, watch} = Vue
 
 
         // props
-        const {width, height, flex, borderTop, borderRight, borderBottom, borderLeft, padding} = props
-
+        const {width, height, flex, borderTop, borderRight, borderBottom, borderLeft, padding, color} = props
 
         // box
         const box = ref()
@@ -88,7 +92,7 @@ export default {
         // canvas
         const canvas = ref()
         const ctx = ref()
-        const fontSize = 14
+        const fontSize = ref(0)
         const initCanvas = () => {
             const {width, height} = wrapper.value.getBoundingClientRect()
 
@@ -96,8 +100,11 @@ export default {
             canvas.value.height = height
             ctx.value = canvas.value.getContext('2d')
             
-            ctx.value.font = `${fontSize}px UbuntuMonoRegular`
-            ctx.value.fillStyle = '#ffffff'
+            const size = Math.min(window.innerWidth, window.innerHeight)
+            fontSize.value = ~~(size * FONT_SIZE_RATIO)
+            
+            ctx.value.font = `${fontSize.value}px UbuntuMonoRegular`
+            ctx.value.fillStyle = color
         }
         const resizeCanvas = () => {
             const {width, height} = wrapper.value.getBoundingClientRect()
@@ -105,8 +112,11 @@ export default {
             canvas.value.width = width
             canvas.value.height = height
 
-            ctx.value.font = `${fontSize}px UbuntuMonoRegular`
-            ctx.value.fillStyle = '#ffffff'
+            const size = Math.min(window.innerWidth, window.innerHeight)
+            fontSize.value = ~~(size * FONT_SIZE_RATIO)
+
+            ctx.value.font = `${fontSize.value}px UbuntuMonoRegular`
+            ctx.value.fillStyle = color
         }
 
 
@@ -155,7 +165,7 @@ export default {
 
                     item.text = `  ${name}  ${edge ? '' : state}`
                     
-                    ctx.value.fillText(item.text, 0, height - fontSize * (idx + 1))
+                    ctx.value.fillText(item.text, 0, height - fontSize.value * (idx + 1))
                 })
 
                 // set new values when complete downloading
@@ -173,20 +183,20 @@ export default {
             // logging
             logs.forEach((log, idx) => {
                 const x = 0
-                const y = height - fontSize * ((logs.length - idx) + dlList.length)
+                const y = height - fontSize.value * ((logs.length - idx) + dlList.length)
 
                 ctx.value.fillText(log, x, y)
             })
             // remove logs out of canvas
-            if(logs.length > Math.ceil(height / fontSize)){
-                logs.splice(0, logs.length - Math.ceil(height / fontSize))
+            if(logs.length > Math.ceil(height / fontSize.value)){
+                logs.splice(0, logs.length - Math.ceil(height / fontSize.value))
                 // console.log(logs)
             }
 
 
             // write command
             const command = prompt + currentCommand.slice(0, cmdIdx++)
-            ctx.value.fillText(command, 0, height - fontSize / 6)
+            ctx.value.fillText(command, 0, height - fontSize.value / 6)
         }
         const interval = () => {
             const currentTime = window.performance.now()

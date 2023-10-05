@@ -1,4 +1,4 @@
-import {DIR_CONTAINER_WIDTH} from '../../const/style.js'
+import {DIR_CONTAINER_WIDTH, MAIN_COLOR} from '../../const/style.js'
 import FileTree from '../../../src/data/file_tree.js'
 import DirBox from './dirBox.js'
 import DirItem from './dirItem.js'
@@ -61,6 +61,7 @@ export default {
             left: '0',
             width: `${DIR_CONTAINER_WIDTH}px`,
             height: '100%',
+            color: MAIN_COLOR
         }))
 
 
