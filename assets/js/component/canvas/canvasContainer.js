@@ -64,7 +64,7 @@ export default {
         </div>
     `,
     setup(){
-        const {computed, ref, onMounted} = Vue
+        const {computed} = Vue
         const {useStore} = Vuex
 
 
@@ -88,21 +88,6 @@ export default {
             borderLeft: border
         }))
         const color = MAIN_COLOR
-
-
-        // methods
-        const onWindowResize = () => {
-            setFontSize()
-        }
-        const init = () => {
-            setFontSize()
-
-            window.addEventListener('resize', () => onWindowResize())
-        }
-
-
-        // hooks
-        onMounted(() => init())
 
 
         return {

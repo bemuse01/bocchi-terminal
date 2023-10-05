@@ -204,13 +204,25 @@ export default {
                             state: false
                         },
                         {
-                            name: "kessoku.mp4",
+                            name: "bocchi2.mp4",
+                            type: "video",
+                            parent: "BTR",
+                            state: false
+                        },
+                        {
+                            name: "bocchi3.mp4",
                             type: "video",
                             parent: "BTR",
                             state: false
                         },
                         {
                             name: "kita.mp4",
+                            type: "video",
+                            parent: "BTR",
+                            state: false
+                        },
+                        {
+                            name: "kita2.mp4",
                             type: "video",
                             parent: "BTR",
                             state: false
@@ -226,7 +238,19 @@ export default {
                             type: "video",
                             parent: "BTR",
                             state: false
-                        }
+                        },
+                        {
+                            name: "ryo2.mp4",
+                            type: "video",
+                            parent: "BTR",
+                            state: false
+                        },
+                        {
+                            name: "kessoku.mp4",
+                            type: "video",
+                            parent: "BTR",
+                            state: false
+                        },
                     ]
                 },
             ]
