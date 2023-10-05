@@ -7,7 +7,7 @@ export default {
     },
     template: `
         <div
-            class="file-item"
+            class="item file-item"
             :style="fileStyle"
         >
 

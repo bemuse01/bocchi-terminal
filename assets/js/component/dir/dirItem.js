@@ -7,7 +7,7 @@ export default {
     },
     template: `
         <div
-            class="dir-item"
+            class="item dir-item"
             :style="dirStyle"
         >
 

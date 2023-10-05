@@ -186,7 +186,7 @@ export default {
 
             // write command
             const command = prompt + currentCommand.slice(0, cmdIdx++)
-            ctx.value.fillText(command, 0, height)
+            ctx.value.fillText(command, 0, height - fontSize / 6)
         }
         const interval = () => {
             const currentTime = window.performance.now()
