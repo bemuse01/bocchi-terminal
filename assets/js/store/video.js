@@ -1,7 +1,7 @@
 const VideoStore = {
     namespaced: true,
     state: {
-        currentVideo: 'bocchi.mp4',
+        currentVideo: Data[0].filename,
     },
     getters: {
         getCurrentVideo: (state) => state.currentVideo,

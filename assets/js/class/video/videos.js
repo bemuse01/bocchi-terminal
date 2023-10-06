@@ -68,6 +68,7 @@ class Videos{
             }
             video.onerror = (err) => {
                 reject(err)
+                console.log(err, 'error')
             }
         })
     }
