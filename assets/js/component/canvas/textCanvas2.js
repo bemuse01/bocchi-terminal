@@ -123,7 +123,9 @@ const TextCanvas2 = {
         let startTime = 0
         const prompt = 'user@main-host: ~$ '
         const curl = new Curl()
-        const dlState = Array.from({length: 20}, _ => '□')
+        const dlChar = 'o'
+        const dlChar2 = '-'
+        const dlState = Array.from({length: 40}, _ => dlChar2)
 
         let dlList = curl.createDlList()
         let currentCommand = curl.createCommand()
@@ -154,8 +156,8 @@ const TextCanvas2 = {
 
                 dlList.forEach((item, idx) => {
                     const {done, max, name} = item
-                    const progress = ~~((done / max) * dlState.length)
-                    const state = dlState.map((s, i) => i <= progress ? '■' : s).join('')
+                    const progress = Math.ceil((done / max) * dlState.length)
+                    const state = dlState.map((s, i) => i <= progress ? dlChar : s).join('')
                     const edge = idx === 0 || idx === dlList.length - 1
 
                     item.done = Math.min(item.done + 1, max)

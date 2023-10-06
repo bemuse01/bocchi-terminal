@@ -126,11 +126,10 @@ const VideoCanvas = {
 
 
         // videos
-        const srcs = Data.map(data => data.src)
         let videos = null
         const maxPadding = 3
         const createVideo = () => {
-            videos = new Videos(srcs)
+            videos = new Videos()
         }
         const animateVideo = () => {
             videos.animate()
@@ -145,15 +144,6 @@ const VideoCanvas = {
             createVideo()
             await setVideos()
             playVideo(currentVideo.value)
-        }
-        const drawLineNumber = (height) => {
-            const rows = ~~(height / fontSize.value)
-
-            for(let i = 0; i < rows; i++){
-                const text = i.toString()
-                const padding = Array.from({length: maxPadding - text.length}, _ => ' ').join('')
-                ctx.value.fillText(i, fontSize.value, i * fontSize.value)
-            }
         }
         const drawVideo = () => {
             if(!ctx.value) return

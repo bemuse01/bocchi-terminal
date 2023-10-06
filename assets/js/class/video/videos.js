@@ -1,7 +1,5 @@
 class Videos{
-    constructor(srcs){
-        this.srcs = srcs
-
+    constructor(){
         this.videos = []
         this.idx = 0
         this.data = []
@@ -42,10 +40,9 @@ class Videos{
     }
     playVideo(name){
         this.videos.forEach(video => {
-            const {src} = video
+            const {filename} = video
 
-            if(src.includes(name)){
-
+            if(filename === name){
                 this.currentVideo = video
                 video.play()
                 this.setCanvasSize(video)
@@ -58,12 +55,13 @@ class Videos{
 
 
     // load
-    loadVideo(src){
+    loadVideo({filename}){
         return new Promise((resolve, reject) => {
             const video = document.createElement('video')
-            video.src = src
+            video.src = MIME + base64[filename]
             video.muted = true
             video.loop = true
+            video.filename = filename
 
             video.onloadedmetadata = () => {
                 resolve(video)
@@ -74,7 +72,7 @@ class Videos{
         })
     }
     loadVideos(){
-        return Promise.all(this.srcs.map(src => this.loadVideo(src)))
+        return Promise.all(Data.map(data => this.loadVideo(data)))
     }
 
 

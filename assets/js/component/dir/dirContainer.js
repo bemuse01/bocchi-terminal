@@ -146,7 +146,6 @@ const DirContainer = {
         // methods
         const init = () => {
             initItems()
-            console.log(items)
         }
 
 
