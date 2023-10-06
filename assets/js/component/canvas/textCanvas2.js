@@ -1,7 +1,4 @@
-import Curl from '../../class/commands/curl.js'
-import {FONT_SIZE_RATIO} from '../../const/style.js'
-
-export default {
+const TextCanvas2 = {
     props: {
         width: {
             default: 'initial',

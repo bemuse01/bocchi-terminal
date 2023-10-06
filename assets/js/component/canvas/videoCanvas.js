@@ -1,9 +1,4 @@
-// import Video from '../../class/video/video.js'
-import Videos from '../../class/video/videos.js'
-import Data from '../../../src/data/data.js'
-import {FONT_SIZE_RATIO_2} from '../../const/style.js'
-
-export default {
+const VideoCanvas = {
     props: {
         width: {
             default: 'initial',

@@ -1,6 +1,3 @@
-import Data from './data.js'
-import Method from '../../js/method/method.js'
-
 const root = 'bocchi-terminal'
 const dirs = ['home', 'desktop', 'temp', 'backups', 'docs', 'systems', 'scripts', 'logs', 'downloads']
 const chars = '0123456789abcdefghijklmnopqrstuvwxyz-_'
@@ -76,7 +73,7 @@ const createBTR = () => {
 }
 
 
-export default {
+const FileTree = {
     body: [
         {
             id: Method.uuidv4(),

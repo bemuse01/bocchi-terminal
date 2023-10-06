@@ -1,4 +1,4 @@
-export default class{
+class Curl{
     constructor(){
         this.chars = 'abcdefghijklmnopqrstuvwxyz-_'
         this.namePadding = 12

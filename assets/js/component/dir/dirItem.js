@@ -1,6 +1,4 @@
-import {BORDER} from '../../const/style.js'
-
-export default {
+const DirItem = {
     props: {
         name: String,
         depth: Number,

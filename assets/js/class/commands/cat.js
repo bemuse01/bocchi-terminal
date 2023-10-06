@@ -1,6 +1,4 @@
-import Method from '../../method/method.js'
-
-export default class{
+class Cat{
     constructor(){
         this.dirs = ['home', 'desktop', 'temp', 'backups', 'docs', 'systems', 'scripts', 'logs', 'downloads']
         this.hex = '0123456789abcdef'

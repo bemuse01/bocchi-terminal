@@ -1,4 +1,4 @@
-export default {
+const CanvasBox = {
     props: {
         width: {
             default: 'initial',

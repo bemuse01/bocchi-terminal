@@ -1,6 +1,4 @@
-import Method from '../../method/method.js'
-
-export default class{
+class LS{
     constructor(){
         this.dirs = ['home', 'desktop', 'temp', 'backups', 'docs', 'systems', 'scripts', 'logs', 'downloads']
         this.type = ['d']

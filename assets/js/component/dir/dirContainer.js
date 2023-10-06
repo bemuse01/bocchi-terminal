@@ -1,10 +1,4 @@
-import {DIR_CONTAINER_WIDTH, MAIN_COLOR} from '../../const/style.js'
-import FileTree from '../../../src/data/file_tree.js'
-import DirBox from './dirBox.js'
-import DirItem from './dirItem.js'
-import FileItem from './fileItem.js'
-
-export default {
+const DirContainer = {
     components: {
         'dir-box': DirBox,
         'dir-item': DirItem,

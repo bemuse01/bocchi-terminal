@@ -1,4 +1,4 @@
-export default {
+const VideoStore = {
     namespaced: true,
     state: {
         currentVideo: 'bocchi.mp4',

@@ -1,8 +1,4 @@
-import Cat from '../../class/commands/cat.js'
-import LS from '../../class/commands/ls.js'
-import {FONT_SIZE_RATIO} from '../../const/style.js'
-
-export default {
+const TextCanvas = {
     props: {
         width: {
             default: 'initial',

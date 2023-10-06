@@ -1,8 +1,4 @@
-import DirContainer from './dir/dirContainer.js'
-import CanvasContainer from './canvas/canvasContainer.js'
-import {BORDER, MAIN_COLOR} from '../const/style.js'
-
-export default {
+const App = {
     components: {
         'dir-container': DirContainer,
         'canvas-container': CanvasContainer,

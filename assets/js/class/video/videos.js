@@ -1,4 +1,4 @@
-export default class{
+class Videos{
     constructor(srcs){
         this.srcs = srcs
 

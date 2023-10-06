@@ -1,4 +1,4 @@
-export default {
+const DirBox = {
     props: {
         padding: {
             default: '0',

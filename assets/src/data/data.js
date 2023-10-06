@@ -1,4 +1,4 @@
-export default [
+const Data = [
     {
         filename: 'bocchi.mp4',
         src: './assets/src/videos/bocchi.mp4'

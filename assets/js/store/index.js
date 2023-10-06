@@ -1,6 +1,4 @@
-import VideoStore from './video.js'
-
-export default Vuex.createStore({
+const Store = Vuex.createStore({
     state: {
     },
     getters: {

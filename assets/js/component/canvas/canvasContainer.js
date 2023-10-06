@@ -1,10 +1,4 @@
-import VideoCanvas from './videoCanvas.js'
-import TextCanvas from './textCanvas.js'
-import TextCanvas2 from './textCanvas2.js'
-import CanvasBox from './canvasBox.js'
-import {DIR_CONTAINER_WIDTH, MAIN_COLOR, BORDER, FONT_SIZE_RATIO, FONT_SIZE_RATIO_2} from '../../const/style.js'
-
-export default {
+const CanvasContainer = {
     props: {
         flex: String
     },
