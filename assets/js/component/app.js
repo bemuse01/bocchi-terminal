@@ -27,7 +27,7 @@ const App = {
             top: '0',
             left: '0',
             width: '100vw',
-            height: '100vh',
+            height: 'calc(100vh - 50px)',
             display: 'flex',
             flexDirection: 'row',
             border: `2px solid ${MAIN_COLOR}33`,

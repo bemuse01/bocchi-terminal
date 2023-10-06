@@ -17,7 +17,7 @@ const createChildren = (length, chance, parent, depth) => {
         const name = createName(4, 8)
         const type = 'dir'
         const chance = Math.random() < 0.5
-        const childrenCount = ~~(Math.random() * 1 + 1)
+        const childrenCount = ~~(Math.random() * 2 + 1)
 
         const obj = {
             id,
